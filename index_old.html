@@ -271,48 +271,18 @@
       letter-spacing: .06em; max-width: 300px; line-height: 1.6;
     }
 
-    /* FILTER TABS */
-    .filter-tabs {
-      display: flex; flex-wrap: wrap; gap: .45rem;
-      margin-bottom: 2rem;
+    /* VIDEO GRID */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1.5rem;
     }
-    .filter-btn {
-      font-family: var(--mono); font-size: .68rem; letter-spacing: .1em;
-      text-transform: uppercase; padding: .4rem 1rem;
-      border: 1px solid var(--border); background: none;
-      color: var(--muted); border-radius: 999px; cursor: pointer;
-      transition: border-color .2s, color .2s, background .2s;
-    }
-    .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
-    .filter-btn.active {
-      background: var(--accent); border-color: var(--accent);
-      color: var(--bg); font-weight: 600;
-    }
-
-    /* SCROLL TRACK */
-    .video-scroll-track {
-      display: flex; gap: 1.75rem;
-      overflow-x: auto; scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-      padding-bottom: 1.5rem;
-      scrollbar-width: thin;
-      scrollbar-color: var(--border) transparent;
-      cursor: grab;
-    }
-    .video-scroll-track:active { cursor: grabbing; }
-    .video-scroll-track::-webkit-scrollbar { height: 4px; }
-    .video-scroll-track::-webkit-scrollbar-track { background: transparent; }
-    .video-scroll-track::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
-
-    /* VIDEO CARD */
     .video-card {
-      flex: 0 0 520px; scroll-snap-align: start;
       background: var(--bg); border: 1px solid var(--border);
       border-radius: 4px; overflow: hidden;
       transition: border-color .25s, transform .25s;
     }
     .video-card:hover { border-color: var(--accent); transform: translateY(-3px); }
-    .video-card.hidden { display: none; }
     .video-embed {
       position: relative; width: 100%; padding-top: 56.25%;
       background: #000;
@@ -367,65 +337,6 @@
       transition: transform .4s ease;
     }
     .video-card:hover .screenshot-wrap img { transform: scale(1.03); }
-
-    /* EXPAND ICON on hover */
-    .screenshot-wrap::after {
-      content: '';
-      position: absolute; inset: 0;
-      background: rgba(0,0,0,0);
-      transition: background .25s;
-      z-index: 1;
-    }
-    .screenshot-wrap:hover::after { background: rgba(0,0,0,.3); }
-    .screenshot-expand-icon {
-      position: absolute; top: 50%; left: 50%;
-      transform: translate(-50%, -50%) scale(.8);
-      opacity: 0; z-index: 2;
-      background: rgba(0,0,0,.7); border-radius: 50%;
-      width: 48px; height: 48px;
-      display: flex; align-items: center; justify-content: center;
-      transition: opacity .25s, transform .25s;
-      pointer-events: none;
-      backdrop-filter: blur(4px);
-    }
-    .screenshot-wrap:hover .screenshot-expand-icon {
-      opacity: 1; transform: translate(-50%, -50%) scale(1);
-    }
-    [data-lightbox] { cursor: zoom-in; }
-
-    /* LIGHTBOX */
-    .lightbox-overlay {
-      position: fixed; inset: 0; z-index: 9000;
-      background: rgba(0,0,0,.93);
-      backdrop-filter: blur(12px);
-      display: flex; align-items: center; justify-content: center;
-      opacity: 0; pointer-events: none;
-      transition: opacity .3s;
-    }
-    .lightbox-overlay.open { opacity: 1; pointer-events: all; }
-    .lightbox-inner {
-      position: relative; max-width: 92vw; max-height: 88vh;
-      transform: scale(.95); transition: transform .3s;
-    }
-    .lightbox-overlay.open .lightbox-inner { transform: scale(1); }
-    .lightbox-inner img {
-      display: block; max-width: 92vw; max-height: 85vh;
-      object-fit: contain; border-radius: 4px;
-      box-shadow: 0 32px 80px rgba(0,0,0,.6);
-    }
-    .lightbox-caption {
-      font-family: var(--mono); font-size: .7rem; letter-spacing: .1em;
-      text-transform: uppercase; color: var(--muted);
-      text-align: center; margin-top: .85rem;
-    }
-    .lightbox-close {
-      position: absolute; top: -2.5rem; right: 0;
-      background: none; border: none; color: var(--muted);
-      font-family: var(--mono); font-size: .72rem; letter-spacing: .1em;
-      text-transform: uppercase; cursor: pointer;
-      transition: color .2s; display: flex; align-items: center; gap: .4rem;
-    }
-    .lightbox-close:hover { color: var(--accent); }
     .screenshot-badge {
       position: absolute; bottom: .6rem; left: .6rem;
       font-family: var(--mono); font-size: .6rem; letter-spacing: .1em;
@@ -659,7 +570,6 @@
       .about-right { padding-top: 0; }
       .contact-grid { grid-template-columns: 1fr; }
       footer { padding: 1.5rem 1.25rem; }
-      .video-card { flex: 0 0 85vw; }
     }
   </style>
 </head>
@@ -836,217 +746,140 @@
     </div>
   </div>
 
-  <!-- FILTER TABS -->
-  <div class="filter-tabs" id="filterTabs">
-    <button class="filter-btn active" data-filter="all">All Projects</button>
-    <button class="filter-btn" data-filter="video">Video Editing</button>
-    <button class="filter-btn" data-filter="web">Web Project</button>
-    <button class="filter-btn" data-filter="graphics">Graphic Design</button>
-    <button class="filter-btn" data-filter="others">Others</button>
-  </div>
-
-  <!-- SCROLL TRACK -->
-  <div class="video-scroll-track" id="videoGrid">
-
-      <!-- WEB — Jase Fitness Demo -->
-    <div class="video-card" data-category="web">
-      <div class="screenshot-wrap" data-lightbox data-img="files/jasefitness.jpg" data-caption="Jase Fitness Site Demo">
-        <img src="files/jasefitness.jpg" alt="Web Project" loading="lazy" />
-        <span class="screenshot-badge">Web Project</span>
-        <span class="screenshot-expand-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
-        </span>
+  <div class="video-grid" id="videoGrid">
+   <!-- Notion Portfolio screenshot card -->
+    <div class="video-card">
+       <div class="screenshot-wrap">
+         <a href="https://www.notion.so/jaseaquino/Jase-Creatives-Portfolio-6ab30f5d257d4df3a07eeb188e381d4f?source=copy_link" target="_blank" rel="noopener">
+           <img src="files/notion-screenshot.png" alt="Jase Aquino's Notion Portfolio" loading="lazy" width="1200" height="675" decoding="async" />
+          </a>
+       <span class="screenshot-badge">Web Project</span>
       </div>
-      <div class="video-info">
-        <p class="video-title">Jase Fitness Site Demo</p>
-        <p class="video-meta">Frontend Web Development · Responsive Landing Page · 2026</p>
-        <a class="card-link-btn" href="https://jasonalp.github.io/jasefitness.github.io/" target="_blank" rel="noopener">
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-          Visit Site
+   <div class="video-info">
+      <p class="video-title">Jase Aquino's Notion Portfolio</p>
+       <p class="video-meta">Notion Setup Specialist · Notion · 2026</p>
+        <a class="card-link-btn" href="https://www.notion.so/jaseaquino/Jase-Creatives-Portfolio-6ab30f5d257d4df3a07eeb188e381d4f?source=copy_link" target="_blank" rel="noopener">
+         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+         Visit Site
         </a>
+       </div>
       </div>
-    </div>
-    
-    <!-- OTHERS: Notion Portfolio -->
-    <div class="video-card" data-category="others">
-      <div class="screenshot-wrap" data-lightbox data-img="files/notion-screenshot.png" data-caption="Jase Aquino's Notion Portfolio">
-        <a href="https://jaseaquino.notion.site/Jase-Creatives-Portfolio-6ab30f5d257d4df3a07eeb188e381d4f?pvs=74" target="_blank" rel="noopener">
-          <img src="files/notion-screenshot.png" alt="Jase Aquino's Notion Portfolio" loading="lazy" width="1200" height="675" decoding="async" />
-        </a>
-        <span class="screenshot-badge">Others</span>
-        <span class="screenshot-expand-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
-        </span>
-      </div>
-      <div class="video-info">
-        <p class="video-title">Jase Aquino's Notion Portfolio</p>
-        <p class="video-meta">Notion Setup Specialist · Notion · 2026</p>
-        <a class="card-link-btn" href="https://jaseaquino.notion.site/Jase-Creatives-Portfolio-6ab30f5d257d4df3a07eeb188e381d4f?pvs=74" target="_blank" rel="noopener">
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-          Visit Site
-        </a>
-      </div>
-    </div>
-
-    <!-- VIDEO: Short form -->
-    <div class="video-card" data-category="video">
-      <div class="video-embed">
-        <iframe src="https://www.youtube.com/embed/1Bg-MVjcHMo" title="GPA 4.0 vs. 3.5 - Short Form Video Demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      </div>
-      <div class="video-info">
+         <!-- SHort form video -->
+    <div class="video-card">
+        <div class="video-embed">
+          <iframe src="https://www.youtube.com/embed/1Bg-MVjcHMo"
+          title="GPA 4.0 vs. 3.5 - Short Form Video Demo"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+           allowfullscreen></iframe>
+       </div>
+     <div class="video-info">
         <p class="video-title">GPA 4.0 vs. 3.5 - Short Form Video Demo</p>
-        <p class="video-meta">Video Editing · Talking Heads · Short-Form · 2026</p>
-      </div>
+       <p class="video-meta">Video Editing · Talking Heads · Short-Form · 2026</p>
+     </div>
     </div>
-
-    <!-- VIDEO: Wii -->
-    <div class="video-card" data-category="video">
-      <div class="video-embed">
-        <iframe src="https://www.youtube.com/embed/TqeDx9ONSfU" title="Wii Clones Video Demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      </div>
-      <div class="video-info">
+   <!-- Wii video -->
+    <div class="video-card">
+        <div class="video-embed">
+          <iframe src="https://www.youtube.com/embed/TqeDx9ONSfU"
+          title="Wii Clones Video Demo"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+           allowfullscreen></iframe>
+       </div>
+     <div class="video-info">
         <p class="video-title">Wii Clones Video Demo</p>
-        <p class="video-meta">Video Editing · Faceless Video · Long-form · 2026</p>
-      </div>
+       <p class="video-meta">Video Editing · Faceless Video · Long-form · 2026</p>
+     </div>
     </div>
-
-    <!-- VIDEO: Real estate -->
-    <div class="video-card" data-category="video">
-      <div class="video-embed">
-        <iframe src="https://www.youtube.com/embed/Isie-fW1xvo" title="Palm Desserts vs. La Quina - Video Demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      </div>
-      <div class="video-info">
+   <!-- Real estate video -->
+    <div class="video-card">
+        <div class="video-embed">
+          <iframe src="https://www.youtube.com/embed/Isie-fW1xvo"
+          title="Palm Desserts vs. La Quina - Video Demo"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+           allowfullscreen></iframe>
+       </div>
+     <div class="video-info">
         <p class="video-title">Palm Desserts vs. La Quina - Video Demo</p>
-        <p class="video-meta">Video Editing · Talking Heads · Long-form · 2026</p>
-      </div>
+       <p class="video-meta">Video Editing · Talking Heads · Long-form · 2026</p>
+     </div>
     </div>
-
-    <!-- GRAPHIC: Video upwork -->
-    <div class="video-card" data-category="graphics">
-      <div class="screenshot-wrap" data-lightbox data-img="files/long-form.jpg" data-caption="Long-Form Video Editing (Upwork Project Catalog) thumbnail">
-        <img src="files/long-form.jpg" alt="Long-Form Video Editing (Upwork Project Catalog) thumbnail" loading="lazy" />
-        <span class="screenshot-badge">Graphic Design</span>
-        <span class="screenshot-expand-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
-        </span>
-      </div>
-      <div class="video-info">
-        <p class="video-title">Long-Form Video Editing (Upwork Project Catalog) thumbnail</p>
-        <p class="video-meta">Graphic Design · Canva · 2026</p>
-      </div>
-    </div>
-
-      <!-- GRAPHIC: Pinoy Nostalgia Atbp. -->
-    <div class="video-card" data-category="graphics">
-      <div class="screenshot-wrap" data-lightbox data-img="files/pinoynostalgia.jpg" data-caption="Pinoy Nostalgia Atbp. Logo Design">
-        <img src="files/pinoynostalgia.jpg" alt="Pinoy Nostalgia Atbp. Logo Design" loading="lazy" />
-        <span class="screenshot-badge">Graphic Design</span>
-        <span class="screenshot-expand-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
-        </span>
-      </div>
-      <div class="video-info">
-        <p class="video-title">Pinoy Nostalgia Atbp. Logo Design</p>
-        <p class="video-meta">Graphic Design · Canva · Logos · 2024</p>
-      </div>
-    </div>
-
-    <!-- VIDEO: A Day We Remember -->
-    <div class="video-card" data-category="video">
-      <div class="video-embed">
-        <iframe src="https://www.youtube.com/embed/GJzpAdoIaCQ" title="A Day We Remember" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      </div>
-      <div class="video-info">
+     <!-- A Day We Remember video -->
+    <div class="video-card">
+        <div class="video-embed">
+          <iframe src="https://www.youtube.com/embed/GJzpAdoIaCQ"
+          title="A Day We Remember"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+           allowfullscreen></iframe>
+       </div>
+     <div class="video-info">
         <p class="video-title">A Day We Remember</p>
-        <p class="video-meta">Video Editing · Highlight Reel · Long-form · 2024</p>
-      </div>
+       <p class="video-meta">Video Editing · Highlight Reel · Long-form · 2024</p>
+     </div>
     </div>
-
-    <!-- VIDEO: Demo Reel 2023 -->
-    <div class="video-card" data-category="video">
+    <!-- ── Demo Reel 2023 ── -->
+    <div class="video-card">
       <div class="video-embed">
-        <iframe src="https://www.youtube.com/embed/o3N2Hki2D88" title="Demo Reel 2023" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <!-- YouTube embed example. Replace VIDEO_ID with your actual YouTube video ID -->
+        <iframe src="https://www.youtube.com/embed/o3N2Hki2D88" title="Demo reel 2023" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" data-ruffle-polyfilled="">
+        </iframe>
       </div>
       <div class="video-info">
         <p class="video-title">Demo Reel 2023</p>
         <p class="video-meta">Video Editing · Long-form · 2023</p>
       </div>
     </div>
-
-    <!-- VIDEO: Podcast Andrei Bilog -->
-    <div class="video-card" data-category="video">
-      <div class="video-embed">
-        <iframe src="https://www.youtube.com/embed/_1hksTzIjKY" title="Podcast Episode - Andrei Bilog" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      </div>
-      <div class="video-info">
+    <!-- Podcast Episode card -->
+    <div class="video-card">
+        <div class="video-embed">
+          <iframe src="https://www.youtube.com/embed/_1hksTzIjKY"
+          title="Podcast Episode - Andrei Bilog"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+           allowfullscreen></iframe>
+       </div>
+     <div class="video-info">
         <p class="video-title">Podcast Episode - Andrei Bilog</p>
-        <p class="video-meta">Video Editing · Podcast · Long-form · 2023</p>
-      </div>
+       <p class="video-meta">Video Editing · Podcast · Long-form · 2023</p>
+     </div>
     </div>
-
-    <!-- VIDEO: Chase Card Review -->
-    <div class="video-card" data-category="video">
-      <div class="video-embed">
-        <iframe src="https://www.youtube.com/embed/UquJW5gP32A" title="Chase Card Review - Andrei Bilog" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      </div>
-      <div class="video-info">
+    <!-- Chase Episode card -->
+    <div class="video-card">
+        <div class="video-embed">
+          <iframe src="https://www.youtube.com/embed/UquJW5gP32A"
+          title="Chase Card Review - Andrei Bilog"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+           allowfullscreen></iframe>
+       </div>
+     <div class="video-info">
         <p class="video-title">Chase Card Review - Andrei Bilog</p>
-        <p class="video-meta">Video Editing · Podcast · Long-form · 2023</p>
-      </div>
+       <p class="video-meta">Video Editing · Podcast · Long-form · 2023</p>
+     </div>
     </div>
-
-    <!-- WEB — list of best -->
-    <div class="video-card" data-category="web">
-      <div class="screenshot-wrap" data-lightbox data-img="files/listofbest - desktop.png" data-caption="&quot;List of Best Info&quot; WordPress site">
-        <img src="files/listofbest - desktop.png" alt="Web Project" loading="lazy" />
-        <span class="screenshot-badge">Web Project</span>
-        <span class="screenshot-expand-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
-        </span>
-      </div>
-      <div class="video-info">
-        <p class="video-title">List of Best Info</p>
-        <p class="video-meta">WordPress Development · 2023</p>
-      </div>
+    <!-- NowShenzhen card -->
+    <div class="video-card">
+        <div class="video-embed">
+          <iframe src="https://www.youtube.com/embed/JRJdtl6lBn8"
+          title="NowShenzhen Weekender - Dec. 1, 2022 - NowShenzhen"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+           allowfullscreen></iframe>
+       </div>
+     <div class="video-info">
+        <p class="video-title">NowShenzhen Weekender - Dec. 1, 2022 - NowShenzhen</p>
+       <p class="video-meta">Video Editing · Highlight Reel · Long-form · 2022</p>
+     </div>
     </div>
-
-    <!-- VIDEO: NowShenzhen -->
-    <div class="video-card" data-category="video">
-      <div class="video-embed">
-        <iframe src="https://www.youtube.com/embed/JRJdtl6lBn8" title="NowShenzhen Weekender" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      </div>
-      <div class="video-info">
-        <p class="video-title">NowShenzhen Weekender - Dec. 1, 2022</p>
-        <p class="video-meta">Video Editing · Highlight Reel · Long-form · 2022</p>
-      </div>
-    </div>
-
-    <!-- VIDEO: Kapit Lang -->
-    <div class="video-card" data-category="video">
-      <div class="video-embed">
-        <iframe src="https://www.youtube.com/embed/LsjUjLmLmSY" title="Kapit Lang Music Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      </div>
-      <div class="video-info">
+    <!-- Kapit Lang card -->
+    <div class="video-card">
+        <div class="video-embed">
+          <iframe src="https://www.youtube.com/embed/LsjUjLmLmSY"
+          title="Kapit Lang Music Video - Shangri-La Manila"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+           allowfullscreen></iframe>
+       </div>
+     <div class="video-info">
         <p class="video-title">Kapit Lang Music Video - Shangri-La Manila</p>
-        <p class="video-meta">Video Editing · Music Video · Long-form · 2021</p>
-      </div>
+       <p class="video-meta">Video Editing · Music Video · Long-form · 2021</p>
+     </div>
     </div>
-
-    <!-- GRAPHIC: Metl -->
-    <div class="video-card" data-category="graphics">
-      <div class="screenshot-wrap" data-lightbox data-img="files/metl.jpg" data-caption="Metl Media Social Media Ad">
-        <img src="files/metl.jpg" alt="Metl Media Social Media Ad" loading="lazy" />
-        <span class="screenshot-badge">Graphic Design</span>
-        <span class="screenshot-expand-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
-        </span>
-      </div>
-      <div class="video-info">
-        <p class="video-title">Metl Media Social Media Ad</p>
-        <p class="video-meta">Graphic Design · Photoshop · 2021</p>
-      </div>
-    </div>
-
   </div>
 </section>
 
@@ -1068,37 +901,31 @@
       <div class="skill-icon">🌐</div>
       <p class="skill-name">WordPress Development</p>
       <p class="skill-desc">Custom themes, Elementor, FSE, performance optimization, security hardening, migrations.</p>
-      <div class="skill-bar-wrap"><div class="skill-bar" style="width:90%"></div></div>
+      <div class="skill-bar-wrap"><div class="skill-bar" style="width:85%"></div></div>
     </div>
     <div class="skill-cell">
       <div class="skill-icon">⚡</div>
       <p class="skill-name">AI Automation</p>
-      <p class="skill-desc">n8n, Anthropic API. Building workflows that save time for SMB clients.</p>
+      <p class="skill-desc">n8n, Make.com, Anthropic API. Building workflows that save time for SMB clients.</p>
       <div class="skill-bar-wrap"><div class="skill-bar" style="width:75%"></div></div>
     </div>
     <div class="skill-cell">
       <div class="skill-icon">🖥️</div>
       <p class="skill-name">Frontend Development</p>
-      <p class="skill-desc">HTML, CSS, JavaScript. Clean, responsive, fast-loading interfaces without the bloat. Leveraging AI‑accelerated workflows to streamline coding</p>
-      <div class="skill-bar-wrap"><div class="skill-bar" style="width:90%"></div></div>
+      <p class="skill-desc">HTML, CSS, JavaScript. Clean, responsive, fast-loading interfaces without the bloat.</p>
+      <div class="skill-bar-wrap"><div class="skill-bar" style="width:80%"></div></div>
     </div>
     <div class="skill-cell">
       <div class="skill-icon">🛠️</div>
       <p class="skill-name">IT Support &amp; CRM</p>
-      <p class="skill-desc">Troubleshooting, system setup, CRM configuration. VA, technical support and remote support experience.</p>
-      <div class="skill-bar-wrap"><div class="skill-bar" style="width:75%"></div></div>
+      <p class="skill-desc">Troubleshooting, system setup, CRM configuration. VA and remote support experience.</p>
+      <div class="skill-bar-wrap"><div class="skill-bar" style="width:88%"></div></div>
     </div>
     <div class="skill-cell">
       <div class="skill-icon">📱</div>
       <p class="skill-name">Short-form Content</p>
       <p class="skill-desc">Reels, TikTok, YouTube Shorts. Hooks, pacing, trending formats, CapCut workflows.</p>
-      <div class="skill-bar-wrap"><div class="skill-bar" style="width:90%"></div></div>
-    </div>
-    <div class="skill-cell">
-      <div class="skill-icon">📝</div>
-      <p class="skill-name">Blog Content Creation</p>
-      <p class="skill-desc">Writing and publishing engaging posts using WordPress with consistent formatting and SEO awareness.</p>
-      <div class="skill-bar-wrap"><div class="skill-bar" style="width:87%"></div></div>
+      <div class="skill-bar-wrap"><div class="skill-bar" style="width:82%"></div></div>
     </div>
   </div>
 </section>
@@ -1534,42 +1361,6 @@
     }
   }
 
-  /* ── FILTER TABS ── */
-  document.querySelectorAll('.filter-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const filter = btn.dataset.filter;
-      document.querySelectorAll('.video-card').forEach(card => {
-        if (filter === 'all' || card.dataset.category === filter) {
-          card.classList.remove('hidden');
-        } else {
-          card.classList.add('hidden');
-        }
-      });
-      // reset scroll to start when filter changes
-      document.getElementById('videoGrid').scrollLeft = 0;
-    });
-  });
-
-  /* ── DRAG TO SCROLL ── */
-  const track = document.getElementById('videoGrid');
-  let isDown = false, startX, scrollLeft;
-  track.addEventListener('mousedown', e => {
-    isDown = true;
-    startX = e.pageX - track.offsetLeft;
-    scrollLeft = track.scrollLeft;
-  });
-  track.addEventListener('mouseleave', () => isDown = false);
-  track.addEventListener('mouseup',    () => isDown = false);
-  track.addEventListener('mousemove',  e => {
-    if (!isDown) return;
-    e.preventDefault();
-    const x    = e.pageX - track.offsetLeft;
-    const walk = (x - startX) * 1.5;
-    track.scrollLeft = scrollLeft - walk;
-  });
-
   /* ── ACTIVE NAV HIGHLIGHT ON SCROLL ── */
   const sections = document.querySelectorAll('section[id]');
   const navLinks = document.querySelectorAll('.nav-links a');
@@ -1623,59 +1414,6 @@
 		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
 	}
 	// ]]>
-</script>
-
-<!-- ═══════════ LIGHTBOX ═══════════ -->
-<div class="lightbox-overlay" id="lightboxOverlay" role="dialog" aria-modal="true">
-  <div class="lightbox-inner">
-    <button class="lightbox-close" id="lightboxClose">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      Close
-    </button>
-    <img id="lightboxImg" src="" alt="" />
-    <p class="lightbox-caption" id="lightboxCaption"></p>
-  </div>
-</div>
-
-<script>
-  /* ── LIGHTBOX ── */
-  const overlay  = document.getElementById('lightboxOverlay');
-  const lbImg    = document.getElementById('lightboxImg');
-  const lbCap    = document.getElementById('lightboxCaption');
-
-  function openLightbox(src, caption) {
-    lbImg.src = src;
-    lbImg.alt = caption;
-    lbCap.textContent = caption;
-    overlay.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeLightbox() {
-    overlay.classList.remove('open');
-    document.body.style.overflow = '';
-    setTimeout(() => { lbImg.src = ''; }, 300);
-  }
-
-  // Click on any [data-lightbox] screenshot-wrap
-  document.addEventListener('click', e => {
-    const wrap = e.target.closest('[data-lightbox]');
-    if (!wrap) return;
-    // Don't open lightbox if they clicked a link inside the card
-    if (e.target.closest('a')) return;
-    e.preventDefault();
-    openLightbox(wrap.dataset.img, wrap.dataset.caption);
-  });
-
-  // Close on overlay click or close button
-  overlay.addEventListener('click', e => {
-    if (e.target === overlay) closeLightbox();
-  });
-  document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
-
-  // Close on Escape key
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closeLightbox();
-  });
 </script>
 
 <div id="nguard-popover-hover" style="display: block;"></div></body></html>
