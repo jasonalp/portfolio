@@ -228,9 +228,10 @@
       margin-bottom: 1rem;
     }
     .section-label::before { content: '01 — '; }
-    #work   .section-label::before { content: '02 — '; }
-    #skills .section-label::before { content: '03 — '; }
-    #contact .section-label::before { content: '04 — '; }
+    #work     .section-label::before { content: '02 — '; }
+    #skills   .section-label::before { content: '03 — '; }
+    #services .section-label::before { content: '04 — '; }
+    #contact  .section-label::before { content: '05 — '; }
     .section-title {
       font-size: clamp(2rem, 4vw, 3.5rem);
       font-weight: 800; letter-spacing: -.03em;
@@ -530,6 +531,48 @@
       border-bottom: 1px solid var(--border);
       transition: background .2s;
     }
+
+    .testimonial-label {
+      font-family: var(--mono); font-size: .7rem; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    .testimonial-label::before { content: '— '; opacity: .6; }
+    .testimonial-title {
+      font-size: clamp(1.5rem, 2.5vw, 2.25rem);
+      font-weight: 800; line-height: 1.1; letter-spacing: -.02em;
+      margin-bottom: 2rem;
+    }
+    .testimonial-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.25rem;
+    }
+    .testimonial-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1.75rem;
+      transition: border-color .25s, transform .25s;
+    }
+    .testimonial-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .testimonial-quote {
+      font-family: var(--serif); font-style: italic; font-size: 1rem; line-height: 1.75;
+      color: var(--text); margin-bottom: 1.4rem;
+    }
+    .testimonial-rating {
+      display: flex; align-items: center; gap: .5rem;
+      margin-bottom: .9rem;
+      font-family: var(--mono); font-size: .68rem; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .testimonial-rating span {
+      display: inline-flex; gap: .1rem; color: var(--accent); font-size: .85rem;
+    }
+    .testimonial-author {
+      font-family: var(--mono); font-size: .7rem; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--accent);
+      padding-top: .9rem; border-top: 1px solid var(--border);
+    }
     .skill-cell:hover { background: var(--surface); }
     .skill-icon { font-size: 1.4rem; margin-bottom: .8rem; }
     .skill-name {
@@ -545,6 +588,80 @@
     .skill-bar {
       height: 2px; background: var(--accent); border-radius: 1px;
       transition: width .8s ease;
+    }
+
+    /* SERVICES */
+    .services-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem; margin-top: 3rem;
+    }
+    .service-card {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 4px; padding: 2rem 1.75rem;
+      display: flex; flex-direction: column;
+      transition: border-color .25s, transform .25s;
+    }
+    .service-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .service-icon { font-size: 1.6rem; margin-bottom: 1rem; }
+    .service-name {
+      font-weight: 800; font-size: 1.1rem; letter-spacing: -.01em;
+      margin-bottom: .6rem;
+    }
+    .service-desc {
+      font-family: var(--serif); font-style: italic; font-size: .92rem;
+      color: var(--muted); line-height: 1.65; margin-bottom: 1.25rem;
+    }
+    .service-features {
+      list-style: none; margin-bottom: 1.5rem; flex-grow: 1;
+    }
+    .service-features li {
+      font-family: var(--mono); font-size: .72rem; letter-spacing: .03em;
+      color: var(--text); padding: .4rem 0;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: .6rem;
+    }
+    .service-features li:last-child { border-bottom: none; }
+    .service-features li::before {
+      content: '→'; color: var(--accent); font-weight: 700;
+    }
+    .service-meta-row {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 1.25rem;
+    }
+    .service-price {
+      font-family: var(--mono); font-size: .8rem; letter-spacing: .04em;
+      color: var(--accent); font-weight: 600;
+    }
+    .service-price small {
+      color: var(--muted); font-weight: 400; text-transform: uppercase;
+      letter-spacing: .08em; font-size: .62rem;
+    }
+    .service-delivery {
+      font-family: var(--mono); font-size: .65rem; letter-spacing: .06em;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .service-links {
+      display: flex; gap: .6rem;
+    }
+    .service-link-btn {
+      flex: 1; display: flex; align-items: center; justify-content: center;
+      gap: .4rem; font-family: var(--mono); font-size: .68rem;
+      letter-spacing: .06em; text-transform: uppercase;
+      text-decoration: none; padding: .65rem .5rem;
+      border: 1px solid var(--border); border-radius: 2px;
+      color: var(--text); transition: border-color .2s, color .2s, background .2s;
+    }
+    .service-link-btn.fiverr:hover { border-color: #1dbf73; color: #1dbf73; }
+    .service-link-btn.upwork:hover { border-color: #14a800; color: #14a800; }
+    .service-link-btn.disabled {
+      opacity: .4; pointer-events: none; border-style: dashed;
+    }
+    .service-badge {
+      display: inline-block; font-family: var(--mono); font-size: .6rem;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--bg); background: var(--accent);
+      padding: .2rem .55rem; border-radius: 999px;
+      margin-bottom: .85rem; align-self: flex-start;
     }
 
     /* ───── CONTACT ───── */
@@ -689,6 +806,7 @@
     <a href="#about">About</a>
     <a href="#work">Work</a>
     <a href="#skills">Skills</a>
+    <a href="#services">Services</a>
     <a href="#contact">Contact</a>
   </div>
   <a class="nav-cta" href="#contact">Hire Me</a>
@@ -711,7 +829,7 @@
 
       <p class="hero-desc">
         Video editor, web developer & digital storyteller — crafting experiences
-        that cut through the noise.
+        that cut through the noise. 
       </p>
 
       <div class="hero-badges">
@@ -786,6 +904,18 @@
     <span class="stat-label">Remote / Async Capable</span>
   </div>
 </div>
+  <!-- ── TESTIMONIALS ── -->
+  <div style="grid-column: 1 / -1; margin-top: 3rem; padding-top: 3rem; border-top: 1px solid var(--border);">
+    <p class="testimonial-label">Client Feedback</p>
+    <h3 class="testimonial-title">What clients say about working together.</h3>
+    <div class="testimonial-grid">
+      <article class="testimonial-card">
+        <div class="testimonial-rating"><span>★★★★☆</span> Upwork review</div>
+        <p class="testimonial-quote">"Very bubbly and good person to work with. Will work with you again for another video editing project. 😄"</p>
+        <p class="testimonial-author">Andrei B.</p>
+      </article>
+    </div>
+  </div>
   <!-- ── TOOLS ── -->
     <div style="grid-column: 1 / -1; margin-top: 3rem; padding-top: 3rem; border-top: 1px solid var(--border);">
       <p style="font-family: var(--mono); font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 2rem;">Tools &amp; Software</p>
@@ -1139,6 +1269,83 @@
       <p class="skill-desc">Writing and publishing engaging posts using WordPress with consistent formatting and SEO awareness.</p>
       <div class="skill-bar-wrap"><div class="skill-bar" style="width:87%"></div></div>
     </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════ SERVICES ═══════════ -->
+<section id="services">
+  <p class="section-label">Services</p>
+  <h2 class="section-title">Hire me for<br>a fixed-scope gig.</h2>
+
+  <div class="services-grid">
+
+    <!-- LONG-FORM VIDEO EDITING -->
+    <div class="service-card">
+      <span class="service-icon">🎬</span>
+      <p class="service-name">Long-Form Video Editing</p>
+      <p class="service-desc">Podcasts, YouTube videos, and talking-head content — cut clean, paced well, and ready to publish.</p>
+      <ul class="service-features">
+        <li>Color correction &amp; audio cleanup</li>
+        <li>B-roll &amp; basic motion graphics</li>
+        <li>Captions / subtitles on request</li>
+        <li>Revisions included</li>
+      </ul>
+      <div class="service-meta-row">
+        <span class="service-price">From $20 <small>/ video</small></span>
+        <span class="service-delivery">3-Day Delivery</span>
+      </div>
+      <div class="service-links">
+        <a class="service-link-btn fiverr" href="https://www.fiverr.com/s/EgGNQa8" target="_blank" rel="noopener">Fiverr ↗</a>
+        <a class="service-link-btn upwork" href="https://www.upwork.com/services/product/video-audio-a-professional-video-edits-at-cheaper-price-rate-1377096862656143360?ref=project_share" target="_blank" rel="noopener">Upwork ↗</a>
+      </div>
+    </div>
+
+    <!-- SHORT-FORM VIDEO EDITING — placeholder -->
+    <div class="service-card">
+      <span class="service-icon">📱</span>
+      <p class="service-name">Short-Form Video Editing</p>
+      <p class="service-desc">Reels, TikToks, and YouTube Shorts edited for retention — fast cuts, hooks, and trending formats.</p>
+      <ul class="service-features">
+        <li>Hook-focused pacing</li>
+        <li>Auto-captions &amp; styled text</li>
+        <li>Trending sound sync</li>
+        <li>Multiple format exports (9:16, 1:1)</li>
+      </ul>
+      <div class="service-meta-row">
+        <span class="service-price">SOON <small>/ video</small></span>
+        <span class="service-delivery">1–2 Day Delivery</span>
+      </div>
+      <div class="service-links">
+        <!-- Replace # with your Fiverr/Upwork gig link once it's live -->
+        <a class="service-link-btn fiverr disabled" href="#" target="_blank" rel="noopener">Fiverr — Coming Soon</a>
+        <a class="service-link-btn upwork disabled" href="#" target="_blank" rel="noopener">Upwork — Coming Soon</a>
+      </div>
+    </div>
+
+    <!-- WEB DEVELOPMENT — placeholder -->
+    <div class="service-card">
+      <span class="service-icon">🌐</span>
+      <p class="service-name">Landing Page / Single-Page Website</p>
+      <p class="service-desc">A fast, modern single-page site or landing page — built and refined using AI-accelerated development.</p>
+      <ul class="service-features">
+        <li>Responsive, mobile-first design</li>
+        <li>Contact form &amp; embeds included</li>
+        <li>Fast-loading, clean code</li>
+        <li>Deploy-ready (Cloudflare / GitHub)</li>
+      </ul>
+      <div class="service-meta-row">
+        <span class="service-price">SOON <small>/ page</small></span>
+        <span class="service-delivery">3–5 Day Delivery</span>
+      </div>
+      <div class="service-links">
+        <!-- Replace # with your Fiverr/Upwork gig link once it's live -->
+        <a class="service-link-btn fiverr disabled" href="#" target="_blank" rel="noopener">Fiverr — Coming Soon</a>
+        <a class="service-link-btn upwork disabled" href="#" target="_blank" rel="noopener">Upwork — Coming Soon</a>
+      </div>
+    </div>
+
   </div>
 </section>
 
