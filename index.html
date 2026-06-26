@@ -228,10 +228,10 @@
       margin-bottom: 1rem;
     }
     .section-label::before { content: '01 — '; }
-    #work     .section-label::before { content: '02 — '; }
-    #skills   .section-label::before { content: '03 — '; }
-    #services .section-label::before { content: '04 — '; }
-    #contact  .section-label::before { content: '05 — '; }
+    #work     .section-label::before { content: '03 — '; }
+    #skills   .section-label::before { content: '04 — '; }
+    #services .section-label::before { content: '05 — '; }
+    #contact  .section-label::before { content: '06 — '; }
     .section-title {
       font-size: clamp(2rem, 4vw, 3.5rem);
       font-weight: 800; letter-spacing: -.03em;
@@ -261,6 +261,154 @@
     }
     .stat-label { font-family: var(--mono); font-size: .72rem; letter-spacing: .1em;
       text-transform: uppercase; color: var(--muted); }
+
+    /* ───── DEMO REELS ───── */
+    .reels-section {
+      position: relative; padding: 6rem 3rem 6.5rem; overflow: hidden;
+      background:
+        linear-gradient(135deg, rgba(212,242,99,0.08), rgba(242,99,99,0.035) 38%, transparent 72%),
+        radial-gradient(circle at 88% 16%, rgba(212,242,99,0.08), transparent 28%),
+        var(--bg);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .reels-section::before {
+      content: ''; position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(232,232,224,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(232,232,224,.035) 1px, transparent 1px);
+      background-size: 44px 44px; opacity: .42; pointer-events: none;
+      mask-image: linear-gradient(90deg, black, transparent 78%);
+    }
+    #reels .section-label::before { content: '02 — '; }
+    .reels-inner { position: relative; z-index: 1; max-width: 1180px; margin: 0 auto; }
+    .reels-intro {
+      display: grid; grid-template-columns: minmax(0, .95fr) auto;
+      gap: 2rem; align-items: end; margin-bottom: 2.2rem;
+    }
+    .reels-copy { max-width: 760px; }
+    .reels-kicker {
+      margin-top: .85rem; max-width: 680px;
+      font-family: var(--serif); font-size: 1.05rem; line-height: 1.75; color: var(--muted);
+    }
+    .reels-toggle {
+      display: inline-grid; grid-template-columns: repeat(2, minmax(130px, 1fr)); gap: .35rem;
+      padding: .35rem; border: 1px solid var(--border); border-radius: 6px;
+      background: rgba(13,13,15,.76); box-shadow: 0 18px 45px rgba(0,0,0,.22);
+    }
+    .reels-toggle-btn {
+      border: 1px solid transparent; background: transparent; color: var(--muted);
+      font-family: var(--mono); font-size: .68rem; letter-spacing: .1em;
+      text-transform: uppercase; padding: .72rem .95rem; border-radius: 4px;
+      cursor: pointer; transition: background .2s, color .2s, border-color .2s;
+      white-space: nowrap;
+    }
+    .reels-toggle-btn:hover { color: var(--accent); border-color: rgba(212,242,99,.28); }
+    .reels-toggle-btn.active {
+      background: var(--accent); color: var(--bg); font-weight: 700;
+    }
+    .reels-showcase {
+      display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(280px, .55fr);
+      gap: 1.5rem; align-items: stretch;
+    }
+    .reel-card {
+      position: relative; display: none; min-height: 100%;
+      background: rgba(20,20,24,.9); border: 1px solid rgba(232,232,224,.1);
+      border-radius: 8px; padding: 1rem; box-shadow: 0 28px 80px rgba(0,0,0,.32);
+    }
+    .reel-card.active { display: block; animation: reelIn .32s ease both; }
+    .reel-card.is-hidden { display: none; }
+    .reel-card::after {
+      content: ''; position: absolute; inset: -1px; border-radius: 8px; pointer-events: none;
+      border: 1px solid rgba(212,242,99,.16);
+    }
+    .reel-frame {
+      position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 6px;
+      overflow: hidden; background: #000; border: 1px solid rgba(255,255,255,.08);
+    }
+    .reel-frame iframe {
+      position: absolute; inset: 0; width: 100%; height: 100%; border: 0;
+    }
+    .reel-meta {
+      display: flex; flex-wrap: wrap; align-items: center; gap: .55rem;
+      margin-top: 1rem;
+    }
+    .reel-chip {
+      font-family: var(--mono); font-size: .62rem; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--accent); border: 1px solid rgba(212,242,99,.38);
+      padding: .35rem .55rem; border-radius: 3px;
+    }
+    .reel-title {
+      margin-top: .85rem; font-size: clamp(1.35rem, 2vw, 2rem); font-weight: 800;
+      letter-spacing: -.025em; line-height: 1.06;
+    }
+    .reel-caption {
+      margin-top: .65rem; max-width: 720px; font-family: var(--serif); font-size: 1rem;
+      line-height: 1.75; color: var(--muted);
+    }
+    .reel-actions { display: flex; flex-wrap: wrap; gap: .65rem; margin-top: 1.15rem; }
+    .reel-link {
+      display: inline-flex; align-items: center; gap: .45rem; min-height: 2.25rem;
+      font-family: var(--mono); font-size: .68rem; letter-spacing: .09em; text-transform: uppercase;
+      color: var(--bg); background: var(--accent); border: 1px solid var(--accent);
+      padding: .6rem .8rem; border-radius: 3px; text-decoration: none; font-weight: 700;
+      transition: transform .2s, opacity .2s;
+    }
+    .reel-link:hover { transform: translateY(-1px); opacity: .88; }
+    .reels-side {
+      display: grid; align-content: stretch; gap: .85rem;
+    }
+    .reel-selector {
+      display: grid; gap: .65rem; padding: .85rem; border: 1px solid var(--border);
+      background: rgba(255,255,255,.025); border-radius: 8px;
+    }
+    .reel-select-card {
+      width: 100%; text-align: left; border: 1px solid var(--border); border-radius: 6px;
+      background: rgba(13,13,15,.72); color: var(--text); padding: .95rem; cursor: pointer;
+      transition: border-color .2s, background .2s, transform .2s;
+    }
+    .reel-select-card:hover { border-color: rgba(212,242,99,.38); transform: translateY(-1px); }
+    .reel-select-card.active { border-color: var(--accent); background: rgba(212,242,99,.08); }
+    .reel-select-label {
+      display: block; font-family: var(--mono); font-size: .6rem; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: .5rem;
+    }
+    .reel-select-title { display: block; font-size: .98rem; font-weight: 800; letter-spacing: -.01em; }
+    .reel-select-text {
+      display: block; margin-top: .4rem; font-family: var(--serif); color: var(--muted);
+      font-size: .9rem; line-height: 1.55;
+    }
+    .reel-proof {
+      display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem;
+    }
+    .reel-proof-item {
+      min-height: 88px; border: 1px solid var(--border); border-radius: 6px;
+      background: rgba(255,255,255,.025); padding: .85rem;
+    }
+    .reel-proof-num {
+      display: block; font-size: 1.35rem; font-weight: 800; color: var(--accent); letter-spacing: -.03em;
+    }
+    .reel-proof-label {
+      display: block; margin-top: .3rem; font-family: var(--mono); font-size: .6rem;
+      letter-spacing: .1em; text-transform: uppercase; color: var(--muted); line-height: 1.45;
+    }
+    @keyframes reelIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 980px) {
+      .reels-intro, .reels-showcase { grid-template-columns: 1fr; }
+      .reels-toggle { width: 100%; }
+      .reels-side { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .reels-section { padding: 4rem 1.25rem 5rem; }
+      .reels-toggle { grid-template-columns: 1fr; }
+      .reel-card { padding: .75rem; }
+      .reel-proof { grid-template-columns: 1fr; }
+      .reel-title { font-size: 1.35rem; }
+    }
 
     /* ───── WORK / VIDEO ───── */
     #work { background: var(--surface); }
@@ -975,6 +1123,109 @@
     <!-- ── END TOOLS ── -->
 </section>
 
+<section id="reels" class="reels-section">
+  <div class="reels-inner">
+    <div class="reels-intro">
+      <div class="reels-copy">
+        <p class="section-label">Demo Reels</p>
+        <h2 class="section-title">A faster read on what I can make.</h2>
+        <p class="reels-kicker">
+          Two focused reels for two kinds of work: clean, responsive web builds and sharp video edits with rhythm, story, and polish.
+        </p>
+      </div>
+
+      <div class="reels-toggle" role="tablist" aria-label="Reel showcase">
+        <button class="reels-toggle-btn active" data-reel-target="web-reel" role="tab" aria-selected="true" aria-controls="web-reel">Web / WordPress</button>
+        <button class="reels-toggle-btn" data-reel-target="video-reel" role="tab" aria-selected="false" aria-controls="video-reel">Video Editing</button>
+      </div>
+    </div>
+
+    <div class="reels-showcase">
+      <div class="reels-player">
+        <article id="web-reel" class="reel-card active" data-reel-card tabindex="0">
+          <div class="reel-frame">
+            <iframe
+              src="https://www.youtube.com/embed/tkA9PHNatnc?rel=0&modestbranding=1"
+              title="Web development and WordPress demo reel"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen>
+            </iframe>
+          </div>
+          <div class="reel-meta">
+            <span class="reel-chip">Frontend</span>
+            <span class="reel-chip">WordPress</span>
+            <span class="reel-chip">Responsive UI</span>
+          </div>
+          <h3 class="reel-title">Web Development &amp; WordPress Demo Reel</h3>
+          <p class="reel-caption">A quick pass through polished landing pages, WordPress customization, responsive sections, and front-end details built to feel clean on every screen.</p>
+          <div class="reel-actions">
+            <a class="reel-link" href="https://www.youtube.com/watch?v=tkA9PHNatnc" target="_blank" rel="noopener">Watch on YouTube</a>
+          </div>
+        </article>
+
+        <article id="video-reel" class="reel-card is-hidden" data-reel-card tabindex="0">
+          <div class="reel-frame">
+            <iframe
+              src="https://www.youtube.com/embed/o3N2Hki2D88?rel=0&modestbranding=1"
+              title="Video editing demo reel"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen>
+            </iframe>
+          </div>
+          <div class="reel-meta">
+            <span class="reel-chip">Short & Long Form</span>
+            <span class="reel-chip">Storytelling</span>
+            <span class="reel-chip">Social Media</span>
+          </div>
+          <h3 class="reel-title">Video Editing Demo Reel</h3>
+          <p class="reel-caption">A focused look at pacing, hooks, captions, motion, and visual storytelling for edits that need to hold attention fast.</p>
+          <div class="reel-actions">
+            <a class="reel-link" href="https://www.youtube.com/watch?v=o3N2Hki2D88" target="_blank" rel="noopener">Watch on YouTube</a>
+          </div>
+        </article>
+      </div>
+
+      <aside class="reels-side" aria-label="Reel highlights">
+        <div class="reel-selector">
+          <button class="reel-select-card active" data-reel-target="web-reel" type="button">
+            <span class="reel-select-label">01 / Build</span>
+            <span class="reel-select-title">Web systems that look sharp and load cleanly.</span>
+            <span class="reel-select-text">Best for clients who need a fast portfolio, landing page, or WordPress refresh.</span>
+          </button>
+          <button class="reel-select-card" data-reel-target="video-reel" type="button">
+            <span class="reel-select-label">02 / Edit</span>
+            <span class="reel-select-title">Video edits shaped for pace, retention, and clarity.</span>
+            <span class="reel-select-text">Best for short-form content, ads, highlights, and clean branded storytelling.</span>
+          </button>
+        </div>
+
+        <div class="reel-proof">
+          <div class="reel-proof-item">
+            <span class="reel-proof-num">2</span>
+            <span class="reel-proof-label">Core creative lanes</span>
+          </div>
+          <div class="reel-proof-item">
+            <span class="reel-proof-num">6+</span>
+            <span class="reel-proof-label">Years editing video</span>
+          </div>
+          <div class="reel-proof-item">
+            <span class="reel-proof-num">5+</span>
+            <span class="reel-proof-label">Years building sites</span>
+          </div>
+          <div class="reel-proof-item">
+            <span class="reel-proof-num">30+</span>
+            <span class="reel-proof-label">Projects delivered</span>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
 <div class="divider"></div>
 
 <!-- ═══════════ WORK ═══════════ -->
@@ -1543,6 +1794,30 @@
   track.addEventListener('mousemove',  e => {
     if (!isDown) return; e.preventDefault();
     track.scrollLeft = scrollLeft - (e.pageX - track.offsetLeft - startX) * 1.5;
+  });
+
+  /* ── DEMO REEL TOGGLE ── */
+  const reelTriggers = document.querySelectorAll('[data-reel-target]');
+  const reelCards = document.querySelectorAll('[data-reel-card]');
+
+  function activateReel(targetId) {
+    reelTriggers.forEach(trigger => {
+      const isActive = trigger.dataset.reelTarget === targetId;
+      trigger.classList.toggle('active', isActive);
+      if (trigger.matches('.reels-toggle-btn')) {
+        trigger.setAttribute('aria-selected', String(isActive));
+      }
+    });
+
+    reelCards.forEach(card => {
+      const isActive = card.id === targetId;
+      card.classList.toggle('active', isActive);
+      card.classList.toggle('is-hidden', !isActive);
+    });
+  }
+
+  reelTriggers.forEach(trigger => {
+    trigger.addEventListener('click', () => activateReel(trigger.dataset.reelTarget));
   });
 
   /* ── ACTIVE NAV HIGHLIGHT ON SCROLL ── */
